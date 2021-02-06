@@ -21,7 +21,7 @@ app.get('/user', (res, req) => {
 })
 
 // ? | MongoDB Conneciton                           ↓ ↓ your mongdb url ↓ ↓ 
-mongoose.connect(process.env.DB_CONNECTION || 'mongodb://localhost:27017/hello', () => console.log('connect'))
+mongoose.connect(process.env.DB_CONNECTION || 'mongodb://localhost:27017/hello', () => console.log('connected!'))
  
 // * localhost:9090
 app.listen(9090)

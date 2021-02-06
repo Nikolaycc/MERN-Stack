@@ -95,9 +95,6 @@ function App() {
       <Form.Group controlId="formBasicEmail">
         <Form.Label>FirstName</Form.Label>
         <Form.Control onChange={e => setFirst(e.target.value)} type="name" placeholder="Enter Firstname" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
