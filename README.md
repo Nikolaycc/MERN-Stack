@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 ### `cd api`
 
-#### `Edit index.js`
+#### Edit index.js
 ```javascript
 mongoose.connect('your mongodb url', () => console.log('connected!'))
 ```
