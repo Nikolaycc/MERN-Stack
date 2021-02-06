@@ -23,4 +23,5 @@ mongoose.connect('your mongodb url', () => console.log('connected!'))
 
 ### `nodemon index.js`
 
+__How Works MERN__
 ![mern](https://webassets.mongodb.com/_com_assets/cms/mern-stack-b9q1kbudz0.png)
