@@ -11,7 +11,7 @@ const UserRoute = require('./Router/user')
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello</h1>')
+    res.send('<h1>Mern</h1>')
 })
 
 app.use('/user', UserRoute)
