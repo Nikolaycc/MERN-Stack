@@ -35,7 +35,8 @@ export default function Userlist() {
                                 <h3><b>User</b>:</h3>
                                 <p>{info.first}</p>
                                 <p>{info.last}</p>
-                                <p>{info.gender}</p>
+                                <p>{info.email}</p>\
+                                <p>{info.pass}</p>
                             </center>
                         </div>
                     )

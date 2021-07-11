@@ -9,10 +9,21 @@ const UserSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    gender: {
+    email: {
         type: String,
-        require: true
+        require: true 
     },
+    pass: {
+        type: String,
+        require: true 
+    },
+    rooms: [{
+        roomId: String,
+        joinDate: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     Date: {
         type: Date,
         default: Date.now

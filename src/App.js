@@ -4,6 +4,12 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Userlist from './Components/userlist'
+import UserPost from './Components/UserPost'
+import NTL from './Msg/NTL';
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import { set } from 'mongoose';
+import Home from './Msg/Home';
+import NTR from './Msg/NTR';
 
 const RandomUser = () => {
   return axios
@@ -36,15 +42,28 @@ function App() {
 
   const [first, setFirst] = useState('')
   const [last, setLast] = useState('')
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
   const [gender, setGender] = useState('')
   const [data, setData] = useState([])
+  const [userIdLocal, setUserIdLocal] = useState('')
+  const [user, setUser] = useState(false)
+  const [msgUser, setMsgUser] = useState([])
+  const [stat, setStat] = useState(false)
+  let urlb = localStorage.getItem('userId')
+
+  useEffect(() => {
+    gg()
+    console.log(localStorage.getItem('userId'))
+  }, [])
 
   const PostUser = () => {
     return axios
     .post('http://localhost:9090/user', {
       first: first,
       last: last,
-      gender: gender
+      email: email,
+      pass: pass
     })
     .then((response) => {
       console.log(response);
@@ -54,11 +73,25 @@ function App() {
     });
   }
 
+  const gg = () => {
+    return axios
+        .get('http://localhost:9090/user/id/' + urlb)
+        .then((res) => {
+            setMsgUser(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+  }
+
   useEffect(() => {
-    GetUser().then((user) => {
-      setData(user.data)
-    })
+    if (localStorage.getItem('userId') !== null){
+      setStat(true)
+    } else {
+      setStat(false)
+    }
   }, [])
+  
 
   // const [randomUserJSON, setRandomUserJSON] = useState('')
   // const [userInfo, setUserInfo] = useState([])
@@ -73,50 +106,37 @@ function App() {
     
   // }, [])
 
-  
 
-  return (
-    <>
-    {/* <p>userdata</p>
-    {
-      userInfo.map((info, idx) => {
-        return (
-        <div key={idx} >
-          <p>{info.name.first}</p>
-          <p>{info.name.last}</p>
-          <img src={info.picture.medium}></img>
-        </div>
-        )
-      })
-    } */
+    if (!stat) {
+      return (
+        <Router>
+          <Switch>
+            <Route extact path="/post" component={UserPost} />
+            <Route path='/reg' component={NTR} />
+            <Route path='/' component={NTL} />
+          </Switch>
+        </Router>
+      )
+    }
+    
+    const HomeV = () => {
+      return(
+        <Home data={msgUser} />
+      )
     }
 
-    <Form className='formm' >
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>FirstName</Form.Label>
-        <Form.Control onChange={e => setFirst(e.target.value)} type="name" placeholder="Enter Firstname" />
-      </Form.Group>
-
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>LastName</Form.Label>
-        <Form.Control onChange={e => setLast(e.target.value)} type="name" placeholder="Enter Lastname" />
-      </Form.Group>
-
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Gender</Form.Label>
-        <Form.Control onChange={e => setGender(e.target.value)} type="name" placeholder="Enter Gender" />
-      </Form.Group>
-    
-      <center>
-        <Button onClick={PostUser} variant="primary" type="submit">
-          Submit
-        </Button>
-      </center>
-    </Form>
-
-    <Userlist />
-    </>
-  );
+    if (stat) {
+      return (
+        <Router>
+          <Switch>
+            <Route extact path="/post" component={UserPost} />
+            <Route path='/' component={HomeV} />
+          </Switch>
+        </Router>
+      )
+    }
+  
+  
 }
 
 export default App;

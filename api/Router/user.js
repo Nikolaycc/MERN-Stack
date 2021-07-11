@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
     const newUser = new UserModel({
         first: req.body.first,
         last: req.body.last,
-        gender: req.body.gender
+        email: req.body.email,
+        pass: req.body.pass
     })
     try{
         const saveUser = await newUser.save()
@@ -25,18 +26,27 @@ router.post('/', async (req, res) => {
     }catch(err){
         res.json({ message: err })
     }
-})
+}) 
 
-router.get('/:userId', async (res, req) => {
+router.get('/:email', async (req, res) => {
     try{
-        const findUser = await UserModel.findById(req.params.userId)
+        const findUser = await UserModel.findOne({email: req.params.email})
         res.json(findUser)
     }catch(err){
         res.json({ message: err })
     }
 })
 
-router.delete('/:userId', async (res, req) => {
+router.get('/id/:userId', async (req, res) => {
+    try{
+        const findUser = await UserModel.findById({_id: req.params.userId})
+        res.json(findUser)
+    }catch(err){
+        res.json({ message: err })
+    }
+})
+
+router.delete('/:userId', async (req, res) => {
     try{
         const removeUser = await UserModel.remove({_id: req.params.userId})
         res.json(removeUser)
