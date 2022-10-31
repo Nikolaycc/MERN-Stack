@@ -5,7 +5,7 @@
 In the project directory, you can run:
 
 ```bash
-  $ npm start
+ $ npm start
 ```
 
 Runs the app in the development mode.\
@@ -18,6 +18,5 @@ You will also see any lint errors in the console.
 ```javascript
 mongoose.connect('your mongodb url', () => console.log('connected!'))
 ```
-
-__How MERN works__
+__________________
 ![mern](https://webassets.mongodb.com/_com_assets/cms/mern-stack-b9q1kbudz0.png)
